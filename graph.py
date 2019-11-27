@@ -114,14 +114,23 @@ class Graph(object):
         :param vertex: origin
         :return: the routing table (predecessors): a dictionary of vertex -> predecessor vertex
         """
-        pass
+        q: list = []
+        marked: set = set()
+        predecessor: dict = {vertex: None}
 
+        q.append(vertex)
+        marked.add(vertex)
+        predecessor[vertex] = None
 
+        while len(q) > 0:
+            v: object = q.pop(0)
 
-
-
-
-
+            for u in self.neighbors(v):
+                if u not in marked:
+                    marked.add(u)
+                    predecessor[u] = v
+                    q.append(u)
+        return predecessor
 
     def path_to(self, v: object, predecessor: dict):
         """
@@ -130,15 +139,12 @@ class Graph(object):
         :param predecessor: routing table (node -> predecessor)
         :return:
         """
-        pass
-
-
-
-
-
-
-
-
+        if v not in predecessor:
+            return
+        else:
+            while v is not None:
+                print(v)
+                v = predecessor[v]
 
 
 def intro(graph: Graph):
